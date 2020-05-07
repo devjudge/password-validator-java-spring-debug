@@ -30,4 +30,7 @@ public class Users {
 
     @Column(name = "is_logged_in")
     private Boolean isLoggedIn;
+
+    @Column(name = "auth_token", unique = true)
+    private String authToken;
 }

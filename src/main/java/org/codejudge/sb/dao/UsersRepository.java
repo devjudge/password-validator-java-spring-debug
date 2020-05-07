@@ -14,4 +14,7 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 
     @Query(value = "select * from users where email = :email", nativeQuery = true)
     Users findByEmail(@Param("email") String email);
+
+    @Query(value = "select * from users where auth_token = :authToken", nativeQuery = true)
+    Users findByAuthToken(@Param("authToken") String authToken);
 }

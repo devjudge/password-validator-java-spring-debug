@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/user")
 public class UsersController {
@@ -17,17 +19,19 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HttpServletRequest httpRequest;
+
     @PutMapping("/login/")
     @ResponseBody
-    public ResponseEntity getPaginatedStudents(@RequestBody LoginRequest request) throws CustomException {
-        userService.login(request);
-        return new ResponseEntity<>(new SuccessResponse(), HttpStatus.OK);
+    public ResponseEntity login(@RequestBody LoginRequest request) throws CustomException {
+        return new ResponseEntity<>(userService.login(request), HttpStatus.OK);
     }
 
     @PutMapping("/change-password/")
     @ResponseBody
     public ResponseEntity changePassword(@RequestBody ChangePasswordRequest request) throws CustomException {
-        userService.changePassword(request);
+        userService.changePassword(request, httpRequest);
         return new ResponseEntity<>(new SuccessResponse(), HttpStatus.OK);
     }
 }
