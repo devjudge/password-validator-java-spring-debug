@@ -22,7 +22,7 @@ public class UserService {
 
     public LoginSuccessResponse login(LoginRequest request) throws CustomException {
         request.validateForLogin();
-        Users users = userRepo.findByCredentials(request.getPassword(), request.getEmail());
+        Users users = userRepo.findByCredentials(request.getEmail(), request.getPassword());
         if (null == users) {
             throw new CustomException("User not found!", HttpStatus.NOT_FOUND);
         }
